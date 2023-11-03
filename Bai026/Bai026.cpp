@@ -1,0 +1,68 @@
+#include<iostream>
+#include<iomanip>
+
+using namespace std;
+
+void Nhap(int[][100], int&, int&);
+void Xuat(int[][100], int, int);
+
+bool ktChinhPhuong(int);
+int TongChinhPhuong(int[][100], int, int);
+
+int main()
+{
+	int b[100][100];
+	int k, l;
+
+	cout << "Ma tran: \n";
+	Nhap(b, k, l);
+
+	cout << "\nMa tran ban dau: \n";
+	Xuat(b, k, l);
+
+	cout << "\nTong cac so chinh phuong: " << TongChinhPhuong(b, k, l);
+
+	cout << "\n\n\nKet Thuc!!!";
+	return 0;
+}
+
+void Nhap(int a[][100], int& m, int& n)
+{
+	cout << "Nhap so dong: ";
+	cin >> m;
+	cout << "Nhap so cot: ";
+	cin >> n;
+	srand(time(NULL));
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++)
+			a[i][j] = rand() % (201) - 100;
+}
+
+void Xuat(int a[][100], int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+			cout << setw(10) << a[i][j];
+		cout << endl;
+	}
+}
+
+bool ktChinhPhuong(int n)
+{
+	bool flag = false;
+	for (int i = 0; i <= n; i++)
+		if (i * i == n)
+			flag = true;
+	return flag;
+}
+
+int TongChinhPhuong(int a[][100], int m, int n)
+{
+	int s = 0;
+	for (int i = 0; i < m; i++)
+		for (int j = 1; j < n; j += 2)
+			if (ktChinhPhuong(a[i][j]))
+				s += a[i][j];
+	return s;
+}
