@@ -5,8 +5,7 @@ using namespace std;
 void Nhap(float[][100], int&, int&);
 void Xuat(float[][100], int, int);
 
-float AmDau(float[][100], int, int);
-float AmLonNhat(float[][100], int, int);
+void ThemCot(float[][100], int, int&, int);
 
 int main()
 {
@@ -15,10 +14,16 @@ int main()
 	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
-	cout << "Ma tran ban dau:\n";
+	cout << "\nMa tran ban dau: ";
 	Xuat(b, k, l);
 
-	cout << "\nGia tri am lon nhat: " << AmLonNhat(b, k, l);
+	int c;
+	cout << "\nNhap cot can them: ";
+	cin >> c;
+
+	ThemCot(b, k, l, c);
+	cout << "Sau khi them so 0 vao cot " << c << ": \n";
+	Xuat(b, k, l);
 
 	cout << "\n\n\nKet Thuc!!!";
 	return 0;
@@ -26,9 +31,9 @@ int main()
 
 void Nhap(float a[][100], int& m, int& n)
 {
-	cout << "\nNhap so dong: ";
+	cout << "Nhap so dong: ";
 	cin >> m;
-	cout << "\nNhap so cot: ";
+	cout << "Nhap so cot: ";
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
@@ -41,25 +46,18 @@ void Xuat(float a[][100], int m, int n)
 	for (int i = 0; i < m; i++)
 	{
 		for (int j = 0; j < n; j++)
-			cout << fixed << setw(10) << setprecision(2) << a[i][j];
+			cout << fixed << setw(10) << setprecision(3) << a[i][j];
 		cout << endl;
 	}
 }
 
-float AmDau(float a[][100], int m, int n)
+void ThemCot(float a[][100], int m, int& n, int c)
 {
 	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] < 0)
-				return a[i][j];
-}
-
-float AmLonNhat(float a[][100], int m, int n)
-{
-	float lc = AmDau(a, m, n);
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] > lc && a[i][j] < 0)
-				lc = a[i][j];
-	return lc;
+	{
+		for (int j = n; j >= c + 1; j--)
+			a[i][j] = a[i][j - 1];
+		a[i][c] = 0;
+	}
+	n++;
 }

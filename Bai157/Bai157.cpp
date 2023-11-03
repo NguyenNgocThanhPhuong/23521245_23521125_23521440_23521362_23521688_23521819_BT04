@@ -5,8 +5,8 @@ using namespace std;
 void Nhap(float[][100], int&, int&);
 void Xuat(float[][100], int, int);
 
-float AmDau(float[][100], int, int);
-float AmLonNhat(float[][100], int, int);
+void DichTraiDong(float[][100], int, int, int);
+void DichTrai(float[][100], int, int);
 
 int main()
 {
@@ -15,20 +15,22 @@ int main()
 	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
-	cout << "Ma tran ban dau:\n";
+	cout << "\nMa tran ban dau:\n";
 	Xuat(b, k, l);
 
-	cout << "\nGia tri am lon nhat: " << AmLonNhat(b, k, l);
+	cout << "\nsap xep day dich trai: \n";
+	DichTrai(b, k, l);
+	Xuat(b, k, l);
 
-	cout << "\n\n\nKet Thuc!!!";
+	cout << "\n\n\nKet thuc!!!";
 	return 0;
 }
 
 void Nhap(float a[][100], int& m, int& n)
 {
-	cout << "\nNhap so dong: ";
+	cout << "Nhap so dong: ";
 	cin >> m;
-	cout << "\nNhap so cot: ";
+	cout << "Nhap so cot: ";
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
@@ -46,20 +48,16 @@ void Xuat(float a[][100], int m, int n)
 	}
 }
 
-float AmDau(float a[][100], int m, int n)
+void DichTraiDong(float a[][100], int m, int n, int d)
 {
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] < 0)
-				return a[i][j];
+	float temp = a[d][0];
+	for (int j = 0; j < n - 1; j++)
+		a[d][j] = a[d][j + 1];
+	a[d][n - 1] = temp;
 }
 
-float AmLonNhat(float a[][100], int m, int n)
+void DichTrai(float a[][100], int m, int n)
 {
-	float lc = AmDau(a, m, n);
 	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] > lc && a[i][j] < 0)
-				lc = a[i][j];
-	return lc;
+		DichTraiDong(a, m, n, i);
 }
