@@ -1,26 +1,28 @@
 #include<iostream>
 #include<iomanip>
-#include<cmath>
 using namespace std;
 
 void Nhap(float[][100], int&, int&);
-void Xoay180(float[][100], int&, int&);
 void Xuat(float[][100], int, int);
+
+void Xoay90(float[][100], int&, int&);
+void Xoay180(float[][100], int&, int&);
 
 int main()
 {
 	float b[100][100];
 	int k, l;
+	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
 	cout << "\nMa tran ban dau:\n";
 	Xuat(b, k, l);
 
 	Xoay180(b, k, l);
-
-	cout << "Ma tran moi:\n";
+	cout << "\nMa tran xoay 180 do: \n";
 	Xuat(b, k, l);
-	cout << "\n\n\nKetthuc!";
+
+	cout << "\n\n\nKet thuc!!!";
 	return 0;
 }
 
@@ -33,7 +35,7 @@ void Nhap(float a[][100], int& m, int& n)
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
 		for (int j = 0; j < n; j++)
-			a[i][j] = -100.0 + (rand() / (RAND_MAX / (100.0 - (-100.0))));
+			a[i][j] = -100 + rand() / ((float)RAND_MAX / 200);
 }
 
 void Xuat(float a[][100], int m, int n)
@@ -46,13 +48,26 @@ void Xuat(float a[][100], int m, int n)
 	}
 }
 
-void Xoay180(float a[][100], int& m, int& n)
+void Xoay90(float a[][100], int& m, int& n)
 {
 	float b[100][100];
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			b[i][j] = a[m - i - 1][n - j - 1];
+	int k, l;
+
+	k = n;
+	l = m;
+	for (int i = 0; i < k; i++)
+		for (int j = 0; j < l; j++)
+			b[i][j] = a[j][n - 1 - i];
+
+	m = k;
+	n = l;
 	for (int i = 0; i < m; i++)
 		for (int j = 0; j < n; j++)
 			a[i][j] = b[i][j];
+}
+
+void Xoay180(float a[][100], int& m, int& n)
+{
+	Xoay90(a, m, n);
+	Xoay90(a, m, n);
 }
