@@ -1,20 +1,59 @@
-// Bai001.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+void Nhap(int[][500], int&, int&);
+void Xuat(int[][500], int, int);
+void Xuat(string, int[][500], int, int);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	int b[500][500];
+	int k, l;
+
+	cout << "Ma tran: \n";
+	Nhap(b, k, l);
+
+	cout << "Ma tran ban dau: \n";
+	Xuat(b, k, l);
+
+	Xuat("data01.inp", b, k, l);
+
+	cout << "\n\n\nKet Thuc!!!";
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void Nhap(int a[][500], int& m, int& n)
+{
+	cout << "Nhap so dong: ";
+	cin >> m;
+	cout << "Nhap so cot: ";
+	cin >> n;
+	srand(time(NULL));
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++)
+			a[i][j] = rand() % (200 + 1) - 100;
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void Xuat(int a[][500], int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+			cout << setw(8) << a[i][j];
+		cout << endl;
+	}
+}
+
+void Xuat(string filename, int a[][500], int m, int n)
+{
+	ofstream fo(filename);
+	fo << m << setw(8) << n << endl;
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+			fo << setw(8) << a[i][j];
+		fo << endl;
+	}
+}

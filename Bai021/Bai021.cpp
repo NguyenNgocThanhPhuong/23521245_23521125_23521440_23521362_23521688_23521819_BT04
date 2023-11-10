@@ -5,29 +5,29 @@ using namespace std;
 void Nhap(int[][100], int&, int&);
 void Xuat(int[][100], int, int);
 
-int ChanDau(int[][100], int, int);
-int ChanLonNhat(int[][100], int, int);
+void LietKe(int[][100], int, int);
 
 int main()
 {
 	int b[100][100];
 	int k, l;
+
 	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
 	cout << "Ma tran ban dau:\n";
 	Xuat(b, k, l);
 
-	cout << "\nGia tri chan lon nhat: " << ChanLonNhat(b, k, l);
-	cout << "\n\n\nKet Thuc!!!";
+	LietKe(b, k, l);
+	cout << "\n\n\nKet Thuc!";
 	return 0;
 }
 
 void Nhap(int a[][100], int& m, int& n)
 {
-	cout << "\nNhap so dong : ";
+	cout << "Nhap so dong: ";
 	cin >> m;
-	cout << "\nNhap so cot : ";
+	cout << "Nhap so cot: ";
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
@@ -45,20 +45,15 @@ void Xuat(int a[][100], int m, int n)
 	}
 }
 
-int ChanDau(int a[][100], int m, int n)
+void LietKe(int a[][100], int m, int n)
 {
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] % 2 == 0)
-				return a[i][j];
-}
-
-int ChanLonNhat(int a[][100], int m, int n)
-{
-	int lc = ChanDau(a, m, n);
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] > lc && a[i][j] % 2 == 0)
-				lc = a[i][j];
-	return lc;
+	cout << "\nCac gia tri nam tren bien: ";
+	for (int j = 0; j <= n - 2; j++)
+		cout << setw(10) << a[0][j];
+	for (int i = 0; i <= m - 2; i++)
+		cout << setw(10) << a[i][n - 1];
+	for (int j = n - 1; j >= 1; j--)
+		cout << setw(10) << a[m - 1][j];
+	for (int i = m - 1; i >= 1; i--)
+		cout << setw(10) << a[i][0];
 }

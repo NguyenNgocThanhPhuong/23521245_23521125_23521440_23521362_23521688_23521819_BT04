@@ -1,33 +1,39 @@
-#include <iostream>
-#include <iomanip>
+#include<iostream>
+#include<cmath>
+#include<iomanip>
 using namespace std;
 
 void Nhap(int[][100], int&, int&);
 void Xuat(int[][100], int, int);
 
-int ChanDau(int[][100], int, int);
-int ChanLonNhat(int[][100], int, int);
+bool ktDoiXung(int);
+void LietKe(int[][100], int, int, int);
 
 int main()
 {
 	int b[100][100];
 	int k, l;
+
 	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
 	cout << "Ma tran ban dau:\n";
 	Xuat(b, k, l);
 
-	cout << "\nGia tri chan lon nhat: " << ChanLonNhat(b, k, l);
-	cout << "\n\n\nKet Thuc!!!";
+	int cc;
+	cout << "Nhap cot can kiem tra:";
+	cin >> cc;
+
+	LietKe(b, k, l, cc);
+	cout << "\n\n\nKetthuc!";
 	return 0;
 }
 
 void Nhap(int a[][100], int& m, int& n)
 {
-	cout << "\nNhap so dong : ";
+	cout << "Nhap so dong: ";
 	cin >> m;
-	cout << "\nNhap so cot : ";
+	cout << "Nhap so cot: ";
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
@@ -45,20 +51,24 @@ void Xuat(int a[][100], int m, int n)
 	}
 }
 
-int ChanDau(int a[][100], int m, int n)
+bool ktDoiXung(int n)
 {
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] % 2 == 0)
-				return a[i][j];
+	int t = n;
+	int dn = 0;
+	while (t != 0)
+	{
+		dn = dn * 10 + t % 10;
+		t = t / 10;
+	}
+	if (dn == n)
+		return true;
+	return false;
 }
 
-int ChanLonNhat(int a[][100], int m, int n)
+void LietKe(int a[][100], int m, int n, int c)
 {
-	int lc = ChanDau(a, m, n);
+	cout << "\nCac so doi xung tren cot " << c << ": ";
 	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] > lc && a[i][j] % 2 == 0)
-				lc = a[i][j];
-	return lc;
+		if (ktDoiXung(a[i][c]))
+			cout << setw(10) << a[i][c];
 }

@@ -5,29 +5,35 @@ using namespace std;
 void Nhap(int[][100], int&, int&);
 void Xuat(int[][100], int, int);
 
-int ChanDau(int[][100], int, int);
-int ChanLonNhat(int[][100], int, int);
+bool ktNguyenTo(int);
+int TongNguyenTo(int[][100], int, int);
 
 int main()
 {
 	int b[100][100];
 	int k, l;
+
 	cout << "Ma tran: \n";
 	Nhap(b, k, l);
 
-	cout << "Ma tran ban dau:\n";
+	cout << "\nMa tran ban dau: \n";
 	Xuat(b, k, l);
 
-	cout << "\nGia tri chan lon nhat: " << ChanLonNhat(b, k, l);
+	int dd;
+	cout << "Nhap dong: ";
+	cin >> dd;
+
+	cout << "\nTong cac so nguyen to trong ma tran  " << TongNguyenTo(b, k, l) << endl;
+
 	cout << "\n\n\nKet Thuc!!!";
 	return 0;
 }
 
 void Nhap(int a[][100], int& m, int& n)
 {
-	cout << "\nNhap so dong : ";
+	cout << "Nhap so dong: ";
 	cin >> m;
-	cout << "\nNhap so cot : ";
+	cout << "Nhap so cot: ";
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < m; i++)
@@ -45,20 +51,23 @@ void Xuat(int a[][100], int m, int n)
 	}
 }
 
-int ChanDau(int a[][100], int m, int n)
+bool ktNguyenTo(int k)
 {
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
-			if (a[i][j] % 2 == 0)
-				return a[i][j];
+	int dem = 0;
+	for (int i = 1; i <= k; i++)
+		if (k % i == 0)
+			dem++;
+	if (dem == 2)
+		return true;
+	return false;
 }
 
-int ChanLonNhat(int a[][100], int m, int n)
+int TongNguyenTo(int a[][100], int m, int n)
 {
-	int lc = ChanDau(a, m, n);
+	int s = 0;
 	for (int i = 0; i < m; i++)
 		for (int j = 0; j < n; j++)
-			if (a[i][j] > lc && a[i][j] % 2 == 0)
-				lc = a[i][j];
-	return lc;
+			if (ktNguyenTo(a[i][j]))
+				s += a[i][j];
+	return s;
 }
